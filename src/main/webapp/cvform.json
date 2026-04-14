@@ -1,0 +1,26 @@
+{
+  "education": [
+    {
+      "education_place": "Trường của bạn",
+      "major": "Ngành học của bạn"
+    }
+  ],
+  "personal_information": {
+    "address": "Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành phố",
+    "birthdate": "01/01/1990",
+    "phone_number": "0912345678",
+    "email": "timviec30@gmail.com"
+  },
+  "skill_group": [
+    {
+      "skill_name": "Kỹ năng 1"
+    }
+  ],
+  "working_experience": [
+    {
+      "working_duration": "07/2021 - Hiện tại",
+      "working_position": "Tổ trưởng trực xuất hàng",
+      "working_place": "CÔNG TY CP ỐNG THÉP HÒA PHÁT"
+    } 
+  ]
+}

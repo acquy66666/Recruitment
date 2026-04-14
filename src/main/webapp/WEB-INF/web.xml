@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>CandidateProfile</servlet-name>
+        <servlet-class>com.recruitment.controller.candidate.CandidateProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResumeUpload</servlet-name>
+        <servlet-class>com.recruitment.controller.candidate.UploadCV</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadImage</servlet-name>
+        <servlet-class>com.recruitment.controller.candidate.UploadImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpayQueryServlet</servlet-name>
+        <servlet-class>com.recruitment.controller.vnpay.VnpayQueryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpayRefundServlet</servlet-name>
+        <servlet-class>com.recruitment.controller.vnpay.VnpayRefundServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CandidateProfile</servlet-name>
+        <url-pattern>/CandidateProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResumeUpload</servlet-name>
+        <url-pattern>/ResumeUpload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadImage</servlet-name>
+        <url-pattern>/UploadImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayQueryServlet</servlet-name>
+        <url-pattern>/vnpayquery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayRefundServlet</servlet-name>
+        <url-pattern>/vnpayRefund</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

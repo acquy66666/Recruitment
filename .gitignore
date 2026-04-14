@@ -1,0 +1,30 @@
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+
+# Java class files
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Documentation (exclude large generated docs)
+BUSINESS_FLOWS_SPECIFICATION.md
+SYSTEM_DOCUMENTATION.md
+
+# Generated assets
+src/main/webapp/assets/
+src/main/webapp/favicon.jspf
+src/main/webapp/favicon.png
+src/main/webapp/favicon.svg

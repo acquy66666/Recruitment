@@ -1,0 +1,580 @@
+<%-- 
+    Document   : createCV
+    Created on : Jul 1, 2025, 3:19:25 AM
+    Author     : hoang
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tạo mới CV</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="css/scroll.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/column_scroll.css">
+        <link rel="stylesheet" type="text/css" href="css/thin_scroll.css">
+        <link rel="stylesheet" type="text/css" href="css/theme.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+
+
+    </head>
+
+    <body>
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+
+                <div class="col-sm-3 no-print" id="left">
+
+                    <div id="panel">
+
+                        <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#usageModal">Xem Hướng
+                            Dẫn</button>
+                        <button class="btn btn-block btn-success" onclick="window.print()">Xuất File PDF</button>
+
+                        <button id="saveBtn" class="btn btn-block btn-danger">Lưu CV</button>
+
+                        <hr>
+
+                        <h3 class="text-center">Tùy chỉnh CV</h3>
+                        <button id="defaultTemplateBtn" class="btn btn-block btn-danger" onclick="template('default');">Cơ
+                            bản</button>
+                        <button id="customTemplateBtn" class="btn btn-block btn-default" onclick="template('custom');">Nâng
+                            cao</button>
+                        <h5>
+                            Thông tin liên hệ (số lượng)
+                            <div class="toggle-button">
+                                <div class="toggle-option" data-toggle="contact" id="contact3">3</div>
+                                <div class="toggle-option selected" data-toggle="contact" id="contact4">4</div>
+                                <div class="toggle-option" data-toggle="contact" id="contact5">5</div>
+                            </div>
+                        </h5>
+                        <h5>
+                            Căn lề ngang
+                            <div class="toggle-button">
+                                <div class="toggle-option" data-toggle="margin" id="margin1">1</div>
+                                <div class="toggle-option" data-toggle="margin" id="margin2">2</div>
+                                <div class="toggle-option" data-toggle="margin" id="margin3">3</div>
+                                <div class="toggle-option selected" data-toggle="margin" id="margin4">4</div>
+                                <div class="toggle-option" data-toggle="margin" id="margin5">5</div>
+                                <div class="toggle-option" data-toggle="margin" id="margin6">6</div>
+                            </div>
+                        </h5>
+                        <h5>
+                            Khoảng cách dòng
+                            <div class="toggle-button">
+                                <div class="toggle-option" data-toggle="line" id="line1">1</div>
+                                <div class="toggle-option" data-toggle="line" id="line2">2</div>
+                                <div class="toggle-option" data-toggle="line" id="line3">3</div>
+                                <div class="toggle-option selected" data-toggle="line" id="line4">4</div>
+                                <div class="toggle-option" data-toggle="line" id="line5">5</div>
+                                <div class="toggle-option" data-toggle="line" id="line6">6</div>
+                            </div>
+                        </h5>
+
+                        <br>
+
+                        <div id="customTemplateOptions">
+                            <h5>
+                                Phông chữ
+                                <div class="toggle-button">
+                                    <div class="toggle-option" data-toggle="font" id="fontVerdanaSans">1</div>
+                                    <div class="toggle-option" data-toggle="font" id="fontVerdanaSerif">2</div>
+                                    <div class="toggle-option selected" data-toggle="font" id="fontRoboto">3</div>
+                                    <div class="toggle-option" data-toggle="font" id="fontDroid">4</div>
+                                </div>
+                            </h5>
+                            <h5>
+                                Tiêu Đề In Hoa
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="case" id="caseNormal">Mặc định</div>
+                                    <div class="toggle-option" data-toggle="case" id="caseUpper">In Hoa</div>
+                                </div>
+                            </h5>
+                            <h5>
+                                Kiểu Tiêu Đề
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="title" id="titleRuled">Đường kẻ</div>
+                                    <div class="toggle-option" data-toggle="title" id="titleShaded">Có nền</div>
+                                </div>
+                            </h5>
+                            <h5>
+                                Vị trí đường kẻ Tiêu Đề
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="rule" id="ruleAbove">Bên trên</div>
+                                    <div class="toggle-option" data-toggle="rule" id="ruleBelow">Bên dưới</div>
+                                </div>
+                            </h5>
+                            <br>
+
+                            <h5>
+                                Thông tin thêm (dưới tên)
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="course" id="course1">2 dòng</div>
+                                    <div class="toggle-option" data-toggle="course" id="course2">3 dòng</div>
+                                </div>
+                            </h5>
+                            <h5>
+                                Bố cục "Kinh Nghiệm"
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="experience" id="experience1">Loại 1
+                                    </div>
+                                    <div class="toggle-option" data-toggle="experience" id="experience2">Loại 2</div>
+                                </div>
+                            </h5>
+                            <h5>
+                                Bố cục "Dự Án"
+                                <div class="toggle-button">
+                                    <div class="toggle-option selected" data-toggle="projects" id="projects1">Loại 1</div>
+                                    <div class="toggle-option" data-toggle="projects" id="projects2">Loại 2</div>
+                                </div>
+                            </h5>
+                            <br>
+                        </div>
+
+                        <h5>
+                            <button class="btn btn-sm btn-block btn-primary" data-toggle="modal"
+                                    data-target="#sectionToggleModal">Ẩn/Hiện các danh mục</button>
+                        </h5>
+
+                        <hr>
+
+                        <h3 class="text-center">Danh sách và các mục</h3>
+                        <button class="btn btn-block btn-xs btn-success" onclick="insertList();">+ Thêm mục phụ</button>
+                        <button class="btn btn-block btn-xs btn-warning" onclick="decreaseIndent();">&lt;&lt; Giảm khoảng
+                            cách lề</button>
+                        <button class="btn btn-block btn-xs btn-warning" onclick="increaseIndent();">&gt;&gt; Tăng khoảng
+                            cách lề</button>
+                        <h5>
+                            Kiểu mục con
+                            <div class="toggle-button">
+                                <button class="btn btn-xs custom-button" onclick="changeListStyle('disc');">&#9899;</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('circle');">&#9898;</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('square');">&#9632;</button>
+                                <button class="btn btn-xs custom-button" onclick="changeListStyle('dash');">-</button>
+                                <button class="btn btn-xs custom-button" onclick="changeListStyle('decimal');">1.</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('upper-roman');">I.</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('lower-roman');">i.</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('upper-alpha');">A.</button>
+                                <button class="btn btn-xs custom-button"
+                                        onclick="changeListStyle('lower-alpha');">a.</button>
+                            </div>
+                        </h5>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-9 text-center" id="right">
+
+                    <form id="saveCvForm" action="CVTemplate" method="post">
+                        <input type="hidden" name="candidateId" value="${candidateId}">
+                        <input type="hidden" name="title" id="cvTitle" value="Mẫu CV chưa đặt tên">
+                        <input type="hidden" name="htmlContent" id="htmlContent">
+                        <div id="page" class="roboto">
+
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-sm-12">
+                                    <div style="display:inline-block;" id="image_box">
+
+                                    </div>
+                                    <div id="info" style="display:inline-block;">
+                                        <h2 id="contentName">Nguyễn Văn A</h2>
+                                        <h5 id="contentCourse">Backend / Frontend Developer</h5>
+                                        <h5 id="contentBranch">XXX Engineering</h5>
+                                        <h5 id="contentMinor">Minor in XXX</h5>
+                                        <h5 id="contentCollege">Indian Institute of Technology Guwahati</h5>
+                                    </div>
+                                    <div id="contact" style="float:right; display:inline-block;">
+                                        +91-9999999999<br>
+                                        xyz.xyz@gmail.com<br>
+                                        abc.def@outlook.com<br>
+                                        <span class="light" id="contactLink1">www.linkedin.com/in/xyz123<br></span>
+                                        <span class="light" id="contactLink2">github.com/xyz123<br></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="section" id="sectionEducation">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Học vấn</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <div class="title">Đại Học FPT Hà Nội</div>
+                                            <div class="time right">2020 - 2024</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor">Kỹ thuật phầm mềm</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">Đại Học Kinh Tế Quốc Dân</div>
+                                            <div class="time right">Hiện tại</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor">Quản trị kinh doanh</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="section" id="sectionExperience">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Kinh nghiệm</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <div class="title">XYZ Engineer at 'ABC'</div>
+                                            <div class="time right">May 2016 - July 2016</div>
+                                        </div>
+                                        <div>
+                                            <div class="link right">www.abc.in</div>
+                                            <div class="text">Analysed app usage statistics to recommend items based on user's
+                                                preference.</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">XYZ Engineer at 'ABC'</div>
+                                            <div class="time right">Dec 2015</div>
+                                        </div>
+                                        <div>
+                                            <div class="link right">www.abc.in</div>
+                                            <div class="text">Designed methods to improve the existing unit test mechanism.
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionPublications">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Công trình nghiên cứu</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <div class="title">Advanced analysis of damping motion</div>
+                                            <div class="time right">PCES 2010</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor">Mentors</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">Efficient ranking of search results</div>
+                                            <div class="time right">LOCS 2010</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor">Mentors</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionProjects">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Dự án</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <div class="title">Tiêu đề dự án</div>
+                                            <div class="time right">Ongoing</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor tab">Project Mentor</div>
+                                        </div>
+                                        <div>
+                                            <div class="text">Graphical interface to share files over institute's network.</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">Tiêu đề dự án</div>
+                                            <div class="time right">Apr 2016</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor tab">Dr. XYZ, Associate Professor, Dept. of XXX, IIT Guwahati
+                                            </div>
+                                            <div class="link right">goo.gl/link</div>
+                                        </div>
+                                        <div>
+                                            <div class="text">Graphical interface to share files over institute's network.</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">Tiêu đề dự án</div>
+                                            <div class="time right">Jan 2016 - Mar 2016</div>
+                                        </div>
+                                        <div>
+                                            <div class="mentor tab">Mentor name</div>
+                                            <div class="link right">www.xyz.in</div>
+                                        </div>
+                                        <div>
+                                            <div class="text">Graphical interface to share files over institute's network.</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <div class="title">Tiêu đề dự án</div>
+                                            <div class="time right">Feb 2016</div>
+                                        </div>
+                                        <div>
+                                            <div class="link right">goo.gl/link</div>
+                                        </div>
+                                        <div>
+                                            <div class="text">Graphical interface to share files over institute's network.</div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionSkills">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Kĩ năng</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <strong><span class="skillCategory">Ngôn ngữ lập trình</span> :</strong>
+                                        C++, Python, Java *
+                                    </li>
+                                    <li>
+                                        <strong><span class="skillCategory">Công nghệ web</span> :</strong>
+                                        HTML, CSS, Javascript
+                                    </li>
+                                    <li>
+                                        <strong><span class="skillCategory">Quản lý cơ sở dữ liệu</span> :</strong>
+                                        mySQL
+                                    </li>
+                                    <li>
+                                        <strong><span class="skillCategory">Khác</span> :</strong>
+                                        Lập trình Android *
+                                    </li>
+                                    <li>
+                                        <strong><span class="skillCategory">Hệ điều hành</span> :</strong>
+                                        Windows, Linux
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionAchievements">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Thành tựu</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <span class="title">ABC contest 2016 : </span>
+                                        <span class="text">Secured 1st position in the National level contest.</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Joint Entrance Examination 2014 : </span>
+                                        <span class="text">Secured All India Rank 1 among 0.15 million candidates appearing for
+                                            the test.</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">KVPY 2013-14 : </span>
+                                        <span class="text">Obtained the National research fellowship scholarship by securing a
+                                            position in top 1%.</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">ABC Olympiad 2014 : </span>
+                                        <span class="text">Qualified for the international stage by securing top position in
+                                            following stages :</span>
+                                        <ul class="decimal">
+                                            <li>Qualifiers stage : Bagged 20th position among 5000 candidates.</li>
+                                            <li>National level : Bagged 7th position among 250 candidates.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionCourses">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Chứng chỉ</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <li>Computer lab</li>
+                                            <li>Process design</li>
+                                            <li>Statistics *</li>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <li>Advanced calculus</li>
+                                            <li>XYZ architecture *</li>
+                                            <li>ABC lab *</li>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionCurricular">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Hoạt động ngoại khóa</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <li>
+                                        <span class="title">ABC workshop : </span>
+                                        <span class="text">Attended a 3-day workshop on Image sensing satellute
+                                            development.</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">ABC contest 2016 : </span>
+                                        <span class="text">Secured 1st position in the National level contest.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="section" id="sectionInterest">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h4><strong>Fields of interest (OR Research interests)</strong></h4>
+                                    <hr class="hr-below">
+                                </div>
+                                <ul>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <li>Advanced XYZ</li>
+                                            <li>ABC design</li>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <li>XYZ processing</li>
+                                            <li>Robotics</li>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div class="section" id="sectionFooterMessage">
+                                <div class="section-title ruled rule-above">
+                                    <hr class="hr-above">
+                                    <h6><strong>(Thêm thông tin người tham chiếu)</strong></h6>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="modal fade" id="usageModal" tabindex='-1'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5><strong>Ghi chú : </strong>Dùng trình duyệt <strong>Google Chrome</strong> để có trải nghiệm tốt
+                            nhất.</h5>
+                        <h4><strong>Chỉnh sửa nội dung</strong></h4>
+                        <ul>
+                            <li>Chỉnh sửa nội dung CV giống như trình soạn thảo văn bản thông thường.</li>
+                            <li>Toàn bộ các đề mục có thể được thêm, sắp xếp lại hoặc xóa bằng cách cắt, sao chép, dán.</li>
+                            <li>Để định dạng văn bản, hãy chọn phần cần định dạng rồi nhấn <kbd>Ctrl+b</kbd> để in đậm,
+                                <kbd>Ctrl+i</kbd> để in nghiêng, <kbd>Ctrl+u</kbd> để gạch chân.</li>
+                            <li>Dùng nút "Thêm mục phụ" để chèn các ý nhỏ bên trong một mục (như trong phần Thành tựu).</li>
+                            <li>Có thể thay đổi khoảng cách lề và kiểu đánh dấu đầu dòng của danh sách tại vị trí con trỏ.
+                            </li>
+                        </ul>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="sectionToggleModal" tabindex='-1'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionEducation">Học Vấn</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionExperience">Kinh nghiệm</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionPublications">Công trình nghiên cứu</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionProjects">Dự án</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionSkills">Kĩ năng</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionAchievements">Thành tựu</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionCourses">Chứng chỉ</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle" checked="true"
+                                                            value="sectionCurricular">Hoạt động ngoại khóa</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="sectionToggle"
+                                                            value="sectionFooterMessage">Thông tin người tham chiếu</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+    </body>
+    <script>
+                                            document.getElementById('saveBtn').addEventListener('click', () => {
+                                                document.getElementById('htmlContent').value = document.getElementById('page').innerHTML;
+                                                document.getElementById('saveCvForm').submit();
+                                            });
+    </script>
+
+</html>
