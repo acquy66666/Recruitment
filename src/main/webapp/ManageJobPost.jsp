@@ -1260,24 +1260,24 @@
                                                 <td>${a.dateDaealine()}</td>
                                                 <td>
                                                     <c:choose>
-                                                        <c:when test="${a.status == 'Đã duyệt'}">
+                                                        <c:when test="${a.status == 'Active'}">
                                                             <span class="badge" style="background-color: #d4edda; color: #155724;font-size: 0.9rem;">
-                                                                <i class="bi bi-check-circle-fill"></i> ${a.status}
+                                                                <i class="bi bi-check-circle-fill"></i> Active
                                                             </span>
                                                         </c:when>
-                                                        <c:when test="${a.status == 'Chờ duyệt'}">
+                                                        <c:when test="${a.status == 'Pending'}">
                                                             <span class="badge" style="background-color: #fff3cd; color: #856404;font-size: 0.9rem;">
-                                                                <i class="bi bi-hourglass-split"></i> ${a.status}
+                                                                <i class="bi bi-hourglass-split"></i> Pending
                                                             </span>
                                                         </c:when>
-                                                        <c:when test="${a.status == 'Đã từ chối'}">
+                                                        <c:when test="${a.status == 'Rejected'}">
                                                             <span class="badge" style="background-color: #f8d7da; color: #721c24;font-size: 0.9rem;">
-                                                                <i class="bi bi-x-circle-fill"></i> ${a.status}
+                                                                <i class="bi bi-x-circle-fill"></i> Rejected
                                                             </span>
                                                         </c:when>
-                                                        <c:when test="${a.status == 'Đã hết hạn'}">
+                                                        <c:when test="${a.status == 'Expired'}">
                                                             <span class="badge" style="background-color: #e2e3e5; color: #6c757d;font-size: 0.9rem;">
-                                                                <i class="bi bi-exclamation-circle-fill"></i> ${a.status}
+                                                                <i class="bi bi-exclamation-circle-fill"></i> Expired
                                                             </span>
                                                         </c:when>
                                                         <c:otherwise>

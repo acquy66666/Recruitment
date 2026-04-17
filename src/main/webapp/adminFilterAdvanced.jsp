@@ -299,21 +299,21 @@
                                             class="form-select form-select-sm"
                                             style="
                                             background-color: ${
-                                            a.getStatus() == 'Chờ duyệt' ? 'khaki' :
-                                                a.getStatus() == 'Đã duyệt' ? 'lightgreen' :
-                                                a.getStatus() == 'Đã từ chối' ? '#f08080' :
-                                                a.getStatus() == 'Đã hết hạn' ? '#d3d3d3' :
-                                                a.getStatus() == 'Đã ẩn' ? '#808080' : 'white'
+                                            a.getStatus() == 'Pending' ? 'khaki' :
+                                                a.getStatus() == 'Active' ? 'lightgreen' :
+                                                a.getStatus() == 'Rejected' ? '#f08080' :
+                                                a.getStatus() == 'Expired' ? '#d3d3d3' :
+                                                a.getStatus() == 'Hidden' ? '#808080' : 'white'
                                             };
                                             color: black;
                                             font-weight: 500;"
                                             border-radius: 6px;
                                             onchange="this.form.submit()">
-                                        <option value="Chờ duyệt" ${a.getStatus() == 'Chờ duyệt' ? 'selected' : ''}>Chờ duyệt</option>
-                                        <option value="Đã duyệt" ${a.getStatus() == 'Đã duyệt' ? 'selected' : ''}>Đã duyệt</option>
-                                        <option value="Đã từ chối" ${a.getStatus() == 'Đã từ chối' ? 'selected' : ''}>Đã từ chối</option>
-                                        <option value="Đã hết hạn" ${a.getStatus() == 'Đã hết hạn' ? 'selected' : ''}>Đã hết hạn</option>
-                                        <option value="Đã ẩn" ${a.status == 'Đã ẩn' ? 'selected' : ''}>Đã ẩn</option>
+                                        <option value="Pending" ${a.getStatus() == 'Pending' ? 'selected' : ''}>Pending</option>
+                                        <option value="Active" ${a.getStatus() == 'Active' ? 'selected' : ''}>Active</option>
+                                        <option value="Rejected" ${a.getStatus() == 'Rejected' ? 'selected' : ''}>Rejected</option>
+                                        <option value="Expired" ${a.getStatus() == 'Expired' ? 'selected' : ''}>Expired</option>
+                                        <option value="Hidden" ${a.status == 'Hidden' ? 'selected' : ''}>Hidden</option>
                                     </select>
                                 </form>
                             </td>

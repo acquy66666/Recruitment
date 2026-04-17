@@ -10,40 +10,20 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Mr Duc
+ * @author 
  */
 public class DBcontext {
     public Connection c;
 
     public DBcontext() {
-        // #region agent log - DB connection debug
-        System.err.println("[DB_DEBUG] Attempting database connection...");
-        System.err.println("[DB_DEBUG] URL: jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=RecruitmentDBFinal;encrypt=false;trustServerCertificate=true;sharedMemory=true");
-        System.err.println("[DB_DEBUG] Username: sa");
-        // #endregion
         try {
-            String url = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=RecruitmentDBFinal;encrypt=false;trustServerCertificate=true;sharedMemory=true";
+            String url = "jdbc:sqlserver://localhost;instance=SQLEXPRESS;databaseName=RecruitmentDBFinal;TrustServerCertificate=True;encrypt=False";
             String username = "sa";
-            String pass = "123456";
+            String pass = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            System.err.println("[DB_DEBUG] Driver loaded successfully, now connecting...");
             c = DriverManager.getConnection(url, username, pass);
-            // #region agent log
-            System.err.println("[DB_DEBUG] SUCCESS - Database connection established, c=" + c);
-            // #endregion
-        } catch (ClassNotFoundException e) {
-            // #region agent log
-            System.err.println("[DB_DEBUG] FAILURE - ClassNotFoundException: " + e.getMessage());
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            // #endregion
-            throw new RuntimeException("SQL Server JDBC Driver not found. Please add the driver JAR to your project.", e);
-        } catch (SQLException e) {
-            // #region agent log
-            System.err.println("[DB_DEBUG] FAILURE - SQLException: " + e.getMessage());
-            System.err.println("[DB_DEBUG] SQLState: " + e.getSQLState() + ", ErrorCode: " + e.getErrorCode());
-            e.printStackTrace();
-            // #endregion
-            throw new RuntimeException("Cannot connect to SQL Server database. Please check your database configuration.", e);
         }
     }
 

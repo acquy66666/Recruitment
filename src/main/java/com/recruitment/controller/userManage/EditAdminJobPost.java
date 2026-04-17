@@ -123,7 +123,7 @@ public class EditAdminJobPost extends HttpServlet {
         }
         Date dealine = Date.valueOf(applicationDeadline);
         //thieu status
-        jb.updateJobPosts(jobId, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Chờ duyệt", industryID);
+        jb.updateJobPosts(jobId, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Pending", industryID);
         var manageJobPost = admin.manageAllJobPost();
         var listJobPostAdmin = jb.selectAllJobPostAdmin();
         session.setAttribute("message", "Cập nhật bài đăng thành công");
@@ -315,7 +315,7 @@ public class EditAdminJobPost extends HttpServlet {
             return;
         }
         if(session.getAttribute("currentTab").equals("pending") ){
-            var manageJobPostFilter = admin.filterAllJobPost(null, "Chờ duyệt", null, null, null);
+            var manageJobPostFilter = admin.filterAllJobPost(null, "Pending", null, null, null);
             //Phan trang
             int numAll = manageJobPostFilter.size();
             int numPerPage = 10; // moi trang co 10
@@ -336,7 +336,7 @@ public class EditAdminJobPost extends HttpServlet {
             }
             var arr = admin.getListJobPostByPage(manageJobPostFilter, start, end);
             session.setAttribute("manageJobPost", arr);
-            session.setAttribute("status", "Chờ duyệt");
+            session.setAttribute("status", "Pending");
             response.sendRedirect("managePosts.jsp");
             return;
         }

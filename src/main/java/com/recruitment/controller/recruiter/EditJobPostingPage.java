@@ -206,7 +206,7 @@ public class EditJobPostingPage extends HttpServlet {
         }
         Date dealine = Date.valueOf(applicationDeadline);
         //thieu status
-        jb.updateJobPosts(jobId, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Chờ duyệt", industryID);
+        jb.updateJobPosts(jobId, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Pending", industryID);
 //        session.setAttribute("message", "Cập nhật thành công");
 ////        // Ví dụ in ra console để kiểm tra
 ////        out.println("Job Title: " + jobTitle);

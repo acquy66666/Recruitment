@@ -58,7 +58,7 @@ public class PendingJobPosts extends HttpServlet {
 //        response.getWriter().println(toDate);
 //        response.getWriter().println(sort);
 
-        var manageJobPost = admin.filterAllJobPost(null, "Chờ duyệt", null, null, null);
+        var manageJobPost = admin.filterAllJobPost(null, "Pending", null, null, null);
         //Phan trang
         int numAll = manageJobPost.size();
         int numPerPage = 10; // moi trang co 10
@@ -83,7 +83,7 @@ public class PendingJobPosts extends HttpServlet {
         session.setAttribute("page", page);
         session.setAttribute("currentTab", "pending");
 
-        session.setAttribute("status", "Chờ duyệt");
+        session.setAttribute("status", "Pending");
         session.removeAttribute("keyword");
         session.removeAttribute("fromDate");
         session.removeAttribute("toDate");

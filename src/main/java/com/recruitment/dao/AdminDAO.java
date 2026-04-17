@@ -255,7 +255,7 @@ public class AdminDAO extends DBcontext {
     }
 
     public void updateExpiredJobPosts() {
-        String sql = "UPDATE job_post SET status = N'Đã hết hạn' WHERE deadline < CAST(GETDATE() AS DATE) AND status != N'Đã hết hạn';";
+        String sql = "UPDATE job_post SET status = 'Expired' WHERE deadline < CAST(GETDATE() AS DATE) AND status != 'Expired';";
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             ps.executeUpdate();
         } catch (Exception e) {
@@ -295,11 +295,9 @@ public class AdminDAO extends DBcontext {
                     if (!oldStatus.equals(status)) {
                         JobPostingPageDAO creditDAO = new JobPostingPageDAO();
 
-                        if ("Đã từ chối".equals(status)) {
-                            // Cộng credit lại khi bị từ chối
+                        if ("Rejected".equals(status)) {
                             creditDAO.addServiceCredit(recruiterId, "jobPost");
-                        } else if ("Chờ duyệt".equals(status)) {
-                            // Trừ credit khi chuyển sang chờ duyệt
+                        } else if ("Pending".equals(status)) {
                             creditDAO.subtractServiceCredit(recruiterId, "jobPost");
                         }
                     }

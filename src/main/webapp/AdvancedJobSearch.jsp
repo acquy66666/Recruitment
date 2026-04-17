@@ -192,7 +192,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                <input type="text" class="form-control form-control-lg" placeholder="Bạn muốn tìm việc gì?" name="searchQuery" value="${param.searchQuery}">
+                                <input type="text" id="searchQuery" class="form-control form-control-lg" placeholder="Bạn muốn tìm việc gì?" name="searchQuery" value="${param.searchQuery}">
                             </div>
                         </div>
 

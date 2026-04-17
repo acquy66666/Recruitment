@@ -196,7 +196,7 @@ public class JobPostingPage extends HttpServlet {
             return;
         }
         //thieu status
-        jb.insertJobPosts(recruiterID, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Chờ duyệt", industryID);
+        jb.insertJobPosts(recruiterID, jobPosition, jobTitle, location, jobType, salaryMin, salaryMax, experienceLevel, jobDescription, requirements, benefits, dealine, "Pending", industryID);
         request.setAttribute("message", "Thêm dữ liệu thành công");
         // Sau đó bạn có thể xử lý dữ liệu, lưu vào DB, forward sang trang khác, v.v.
         List<JobPost> listJobPost = jb.selectAllJobPostRecruiterInsert(recruiterID);

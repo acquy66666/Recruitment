@@ -44,7 +44,7 @@ public class ReportPostServlet extends HttpServlet {
         
         // Fetch active job posts
         List<JobPost> allJobPosts = jobPostingDAO.filterJobPostAdvancedAdmin(
-                keyword, null, Arrays.asList("Đã duyệt"), null, null, null, "date_desc", null
+                keyword, null, Arrays.asList("Active"), null, null, null, "date_desc", null
         );
         
         // Pagination
@@ -94,9 +94,9 @@ public class ReportPostServlet extends HttpServlet {
             return;
         }
         
-        // Verify job post exists and is Đã duyệt
+        // Verify job post exists and is Active
         JobPost jobPost = jobPostingDAO.searchJobPostbyJobID(Integer.parseInt(jobId));
-        if (jobPost == null || !"Đã duyệt".equals(jobPost.getStatus())) {
+        if (jobPost == null || !"Active".equals(jobPost.getStatus())) {
             session.setAttribute("error", "Bài đăng không hợp lệ hoặc không được duyệt.");
             response.sendRedirect("ReportPosts?keyword=" + (keyword != null ? keyword : ""));
             return;

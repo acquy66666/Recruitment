@@ -56,7 +56,7 @@ public class AdminStatisticsDAO extends DBcontext {
         String sql = "SELECT COUNT(*) AS total\n"
                 + "FROM job_post j\n"
                 + "JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "WHERE j.status = 'Active' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -144,7 +144,7 @@ public class AdminStatisticsDAO extends DBcontext {
         String sql = "SELECT COUNT(*) AS total\n"
                 + "    FROM job_post j\n"
                 + "    JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "    WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "    WHERE j.status = 'Active' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -162,7 +162,7 @@ public class AdminStatisticsDAO extends DBcontext {
         String sql = "SELECT COUNT(*) AS total\n"
                 + "        FROM job_post j\n"
                 + "        JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "        WHERE j.status = N'Chờ duyệt' AND r.isActive = 1";
+                + "        WHERE j.status = 'Pending' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -180,7 +180,7 @@ public class AdminStatisticsDAO extends DBcontext {
         String sql = "SELECT COUNT(*) AS total\n"
                 + "        FROM job_post j\n"
                 + "        JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "        WHERE j.status = N'Đã từ chối' AND r.isActive = 1";
+                + "        WHERE j.status = 'Rejected' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -218,7 +218,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 + "        JOIN candidate c ON a.candidate_id = c.candidate_id\n"
                 + "        JOIN job_post j ON a.job_id = j.job_id\n"
                 + "        JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "        WHERE c.isActive = 1 AND j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "        WHERE c.isActive = 1 AND j.status = 'Active' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -472,7 +472,7 @@ public class AdminStatisticsDAO extends DBcontext {
         String sql = "SELECT YEAR(j.created_at) AS year, MONTH(j.created_at) AS month, COUNT(*) AS count "
                 + "FROM job_post j "
                 + "JOIN recruiter r ON j.recruiter_id = r.recruiter_id "
-                + "WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "WHERE j.status = 'Active' AND r.isActive = 1";
 
         if (fromDate != null && !fromDate.trim().isEmpty()) {
             sql += " AND CAST(j.created_at AS DATE) >= ?";
@@ -540,7 +540,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 + "FROM job_post j "
                 + "JOIN industry i ON j.industry_id = i.industry_id "
                 + "JOIN recruiter r ON j.recruiter_id = r.recruiter_id "
-                + "WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "WHERE j.status = 'Active' AND r.isActive = 1";
 
         if (fromDate != null && !fromDate.isEmpty()) {
             sql += " AND CAST(j.created_at AS DATE) >= ?";
@@ -807,7 +807,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 FROM application a
                 JOIN job_post j ON a.job_id = j.job_id
                 JOIN recruiter r ON j.recruiter_id = r.recruiter_id
-                WHERE j.status = N'Đã duyệt' AND r.isActive = 1
+                WHERE j.status = 'Active' AND r.isActive = 1
                 GROUP BY j.title
                 ORDER BY total DESC
                 OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY
@@ -828,7 +828,7 @@ public class AdminStatisticsDAO extends DBcontext {
 
 //    public double getApprovalRate() {
 //        String sql = "SELECT "
-//                + "SUM(CASE WHEN status = N'Đã duyệt' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS rate "
+//                + "SUM(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS rate "
 //                + "FROM job_post";
 //
 //        try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -859,7 +859,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 + "       (DATEDIFF(DAY, MIN(j.created_at), MAX(j.created_at)) + 1) AS avg_per_day\n"
                 + "FROM job_post j\n"
                 + "JOIN recruiter r ON j.recruiter_id = r.recruiter_id\n"
-                + "WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "WHERE j.status = 'Active' AND r.isActive = 1";
 
         try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -880,7 +880,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 JOIN job_post j ON a.job_id = j.job_id
                 JOIN recruiter r ON j.recruiter_id = r.recruiter_id
                 JOIN industry i ON j.industry_id = i.industry_id
-                WHERE c.isActive = 1 AND r.isActive = 1 AND j.status = N'Đã duyệt'
+                WHERE c.isActive = 1 AND r.isActive = 1 AND j.status = 'Active'
                 GROUP BY i.name
                 ORDER BY total DESC
                 OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
@@ -903,7 +903,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 + "             FROM job_post j \n"
                 + "             JOIN industry i ON j.industry_id = i.industry_id \n"
                 + "             JOIN recruiter r ON j.recruiter_id = r.recruiter_id \n"
-                + "            WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "            WHERE j.status = 'Active' AND r.isActive = 1";
 
         if (fromDate != null && !fromDate.isEmpty()) {
             sql += " AND CAST(j.created_at AS DATE) >= ?";
@@ -951,7 +951,7 @@ public class AdminStatisticsDAO extends DBcontext {
                 + "JOIN job_post j ON a.job_id = j.job_id "
                 + "JOIN recruiter r ON j.recruiter_id = r.recruiter_id "
                 + "JOIN industry i ON j.industry_id = i.industry_id "
-                + "WHERE j.status = N'Đã duyệt' AND r.isActive = 1";
+                + "WHERE j.status = 'Active' AND r.isActive = 1";
 
         if (fromDate != null && !fromDate.isEmpty()) {
             sql += " AND CAST(a.applied_at AS DATE) >= ?";

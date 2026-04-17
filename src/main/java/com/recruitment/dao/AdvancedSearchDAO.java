@@ -24,7 +24,7 @@ public class AdvancedSearchDAO extends DBcontext {
                 + "    r.company_name, r.company_logo_url \n"
                 + "FROM job_post jp \n"
                 + "JOIN recruiter r ON jp.recruiter_id = r.recruiter_id \n"
-                + "WHERE jp.status = N'Đã duyệt'";
+                + "WHERE jp.status = 'Active'";
 
         try {
             PreparedStatement ps = c.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class AdvancedSearchDAO extends DBcontext {
                         rs.getString("description"),
                         null, null,
                         rs.getTimestamp("created_at").toLocalDateTime(),
-                        null, "Đã duyệt"
+                        null, rs.getString("status")
                 );
 
                 String companyName = rs.getString("company_name");
@@ -134,7 +134,7 @@ public class AdvancedSearchDAO extends DBcontext {
             while (rs.next()) {
                 Industry industry = new Industry(
                         rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
 
                 filterList.add(industry);
@@ -155,7 +155,7 @@ public class AdvancedSearchDAO extends DBcontext {
         String sql = "SELECT jp.*, r.company_name, r.company_logo_url "
                 + "FROM job_post jp "
                 + "JOIN recruiter r ON jp.recruiter_id = r.recruiter_id "
-                + "WHERE jp.status = N'Đã duyệt'";
+                + "WHERE jp.status = 'Active'";
 
         if (jobType != null && !jobType.isEmpty()) {
             sql += " AND jp.job_type = ?";
@@ -239,6 +239,7 @@ public class AdvancedSearchDAO extends DBcontext {
                 JobPost job = new JobPost(
                         rs.getInt("job_id"),
                         rs.getInt("recruiter_id"),
+                        rs.getInt("industry_id"),
                         rs.getString("job_position"),
                         rs.getString("title"),
                         rs.getString("location"),

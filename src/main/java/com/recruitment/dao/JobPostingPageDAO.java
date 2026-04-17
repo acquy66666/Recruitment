@@ -92,7 +92,7 @@ public class JobPostingPageDAO extends DBcontext {
 
     public List<JobPost> getSuggestedList(double salaryMin, double salaryMax, int recruiterId, int jobId) {
         List<JobPost> list = new ArrayList<>();
-        String sql = "select top 3 * from job_post where salary_min >= ? and salary_max <= ? and industry_id= ? and job_id<> ?  AND status = N'Đã duyệt'";
+        String sql = "select top 3 * from job_post where salary_min >= ? and salary_max <= ? and industry_id= ? and job_id<> ?  AND status = 'Active'";
         try {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setDouble(1, salaryMin);
@@ -129,7 +129,7 @@ public class JobPostingPageDAO extends DBcontext {
 
     public List<JobPost> getRecruiterJobList(int recruiterId, int jobId) {
         List<JobPost> list = new ArrayList<>();
-        String sql = "select * from job_post where recruiter_id= ? and job_id<> ? AND status = N'Đã duyệt' order by NEWID()";
+        String sql = "select * from job_post where recruiter_id= ? and job_id<> ? AND status = 'Active' order by NEWID()";
         try {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, recruiterId);
@@ -164,14 +164,14 @@ public class JobPostingPageDAO extends DBcontext {
 
     public List<JobPost> selectAllJobPostRecruiter(String recruiter_id) {
         List<JobPost> list = new ArrayList<>();
-        String sql = "select*from job_post join industry on job_post.industry_id = industry.industry_id where recruiter_id = ? AND status != N'Đã ẩn'";
+        String sql = "select*from job_post join industry on job_post.industry_id = industry.industry_id where recruiter_id = ? AND status != 'Hidden'";
         try {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, recruiter_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 JobPost jobPost = new JobPost(
                         rs.getInt("job_id"),
@@ -208,7 +208,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 JobPost jobPost = new JobPost(
                         rs.getInt("job_id"),
@@ -239,7 +239,7 @@ public class JobPostingPageDAO extends DBcontext {
     public List<JobPost> selectAllJobPostLogo() {
         List<JobPost> list = new ArrayList<>();
         String sql = " select*from job_post join recruiter on job_post.recruiter_id = recruiter.recruiter_id\n"
-                + "where job_post.status = N'Đã duyệt' order by job_post.created_at desc";
+                + "where job_post.status = 'Active' order by job_post.created_at desc";
         try {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -353,7 +353,7 @@ public class JobPostingPageDAO extends DBcontext {
     public List<JobPost> statusAllJobPost(String recruiterID) {
         List<JobPost> list = new ArrayList<>();
         String sql = "select distinct status\n"
-                + "from job_post where recruiter_id = ? AND status <> N'Đã ẩn'";
+                + "from job_post where recruiter_id = ? AND status <> 'Hidden'";
         try {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, recruiterID);
@@ -405,7 +405,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 JobPost jobPost = new JobPost(
                         rs.getInt("job_id"),
@@ -505,7 +505,7 @@ public class JobPostingPageDAO extends DBcontext {
     }
 
     public void hideJobPost(String jobId) {
-        String sql = "UPDATE job_post SET status = N'Đã ẩn' WHERE job_id = ?";
+        String sql = "UPDATE job_post SET status = 'Hidden' WHERE job_id = ?";
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, jobId);
             ps.executeUpdate();
@@ -826,7 +826,7 @@ public class JobPostingPageDAO extends DBcontext {
         List<JobPost> list = new ArrayList<>();
         String sql = "SELECT * FROM job_post "
                 + "JOIN recruiter ON job_post.recruiter_id = recruiter.recruiter_id "
-                + "WHERE 1 = 1 AND job_post.status = N'Đã duyệt'";
+                + "WHERE 1 = 1 AND job_post.status = 'Active'";
 
         // Tìm theo từ khóa ở nhiều cột
         if (keyword != null && !keyword.trim().isEmpty()) {
@@ -954,7 +954,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industryer = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 list.add(industryer);
             }
@@ -969,7 +969,7 @@ public class JobPostingPageDAO extends DBcontext {
         String sql = "SELECT jp.job_id, jp.title, jp.status, r.company_name \n"
                 + "FROM job_post jp \n"
                 + "JOIN recruiter r ON jp.recruiter_id = r.recruiter_id\n"
-                + "WHERE jp.recruiter_id = ? AND jp.status = N'Đã duyệt'";
+                + "WHERE jp.recruiter_id = ? AND jp.status = 'Active'";
 
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, recruiterId);
@@ -997,7 +997,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 return new JobPost(
                         rs.getInt("job_id"),
@@ -1055,7 +1055,7 @@ public class JobPostingPageDAO extends DBcontext {
             sql += " AND status IN (" + generatePlaceholders(statuses.size()) + ")";
             params.addAll(statuses);
         } else {
-            sql += " AND status <> N'Đã ẩn'";
+            sql += " AND status <> 'Hidden'";
         }
 
         if (jobTypes != null && !jobTypes.isEmpty()) {
@@ -1221,7 +1221,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 JobPost jobPost = new JobPost(
                         rs.getInt("job_id"),
@@ -1400,7 +1400,7 @@ public class JobPostingPageDAO extends DBcontext {
         String sql = "SELECT * "
                 + "FROM job_post "
                 + "JOIN industry ON job_post.industry_id = industry.industry_id "
-                + "WHERE job_post.recruiter_id = ? AND job_post.status != N'Đã ẩn' ";
+                + "WHERE job_post.recruiter_id = ? AND job_post.status != 'Hidden' ";
 
         if (search != null && !search.trim().isEmpty()) {
             sql += " AND job_post.title LIKE ?";
@@ -1450,7 +1450,7 @@ public class JobPostingPageDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Industry industry = new Industry(rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
                 JobPost jobPost = new JobPost(
                         rs.getInt("job_id"),
@@ -1745,7 +1745,7 @@ public class JobPostingPageDAO extends DBcontext {
                                               JOIN industry i ON j.industry_id = i.industry_id
                                               LEFT JOIN job_advertisement ja ON ja.job_id = j.job_id
                                               WHERE j.recruiter_id = ?
-                                                AND j.status = N'Đã duyệt'
+                                                AND j.status = 'Active'
                                                 AND j.deadline > GETDATE()
                                                 AND (
                                                     ja.ad_id IS NULL
@@ -1828,7 +1828,7 @@ public class JobPostingPageDAO extends DBcontext {
                                               JOIN industry i ON j.industry_id = i.industry_id
                                               LEFT JOIN job_advertisement ja ON ja.job_id = j.job_id
                                               WHERE j.recruiter_id = ?
-                                              AND j.status = N'Đã duyệt'
+                                              AND j.status = 'Active'
                                               AND j.deadline > GETDATE()
                                               AND (
                                                    ja.ad_id IS NULL
@@ -1891,7 +1891,7 @@ public class JobPostingPageDAO extends DBcontext {
         String sql = "SELECT r.company_logo_url, r.company_name, r.company_address "
                 + "FROM job_post jp "
                 + "JOIN recruiter r ON jp.recruiter_id = r.recruiter_id "
-                + "WHERE jp.status = N'Đã duyệt' "
+                + "WHERE jp.status = 'Active' "
                 + "ORDER BY jp.created_at DESC";
 
         try {

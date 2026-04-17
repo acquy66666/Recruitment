@@ -91,8 +91,8 @@ public class ReportedJobPostServlet extends HttpServlet {
             jobPostingDAO.deleteJobPosts(jobId);
             session.setAttribute("message", "Xóa bài đăng thành công.");
         } else if ("markReviewed".equals(action)) {
-            // Mark as reviewed by setting status back to Đã duyệt
-            String sql = "UPDATE job_post SET status = 'Đã duyệt' WHERE job_id = ?";
+            // Mark as reviewed by setting status back to Active
+            String sql = "UPDATE job_post SET status = 'Active' WHERE job_id = ?";
             try (PreparedStatement ps = jobPostingDAO.c.prepareStatement(sql)) {
                 ps.setInt(1, Integer.parseInt(jobId));
                 int rowsAffected = ps.executeUpdate();

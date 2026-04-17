@@ -23,7 +23,7 @@ public class IndustryDAO extends DBcontext {
             while (rs.next()) {
                 return new Industry(
                         rs.getInt("industry_id"),
-                        rs.getString("name")
+                        rs.getString("name_industry")
                 );
             }
         } catch (SQLException e) {
